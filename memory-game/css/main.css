@@ -1,0 +1,28 @@
+* {
+  border: 1px solid red;
+}
+/* img {
+  width: 40px 8px 0;
+} */
+main {
+	width: 650;
+	margin: 35px auto;
+}
+.image {
+  padding: .5em;
+  /* margin: .3em .3em; */
+  margin: 0 auto;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #e9ece5;
+}
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	content: " ";
+	clear: both;
+	height: 0;
+	font-size: 0;
+}
