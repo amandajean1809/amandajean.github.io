@@ -8,6 +8,23 @@ main {
 	width: 650;
 	margin: 35px auto;
 }
+body {
+  text-align: center;
+  font-family: Lato;
+  margin: 0;
+}
+header {
+	background-color: #e6ac00;
+	color: white;
+	padding: 25px 15px;
+}
+h1 {
+	letter-spacing: 1px;
+	font-weight: 400;
+	font-size: 45px;
+	text-transform: uppercase;
+	margin: 0;
+}
 .image {
   padding: .5em;
   /* margin: .3em .3em; */
@@ -17,6 +34,20 @@ main {
   display: flex;
   flex-wrap: wrap;
   background-color: #e9ece5;
+}
+.start, .reset {
+  margin: 0 auto;
+	font-family: Raleway;
+	font-weight: 700;
+	background-color: #e6ac00;
+	text-transform: uppercase;
+  border: none;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  font-size: 14px;
+  margin-right: 16px
+  cursor: pointer;
 }
 .clearfix:after {
 	visibility: hidden;
