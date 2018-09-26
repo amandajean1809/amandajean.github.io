@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Droid+Serif|Raleway:400,500,600,700" rel="stylesheet"> -->
     <script src="js/main.js"></script>
   </head>
   <body>
@@ -16,12 +15,19 @@
     </header>
 
     <main>
-      <h2 id="howto">Instructions</h2>
+      <h2>Instructions</h2>
       <p>Owls are a member of the magnificent raptor family. Many people think they all look alike. This game will check to see how observervant you are on telling them apart!!</p>
     </main>
 
     <div class="flex-container"></div>
     <br>
+    <div class="player-container">
+      <label for="player1">Player1: </label>
+      <input id="player1" class="player" type="text" minlength="4" maxlength="8" placeholder="4 to 8 characters long"/>
+
+      <label for="player2">Player2: </label>
+      <input id="player2" class="player" type="text" minlength="4" maxlength="8" placeholder="4 to 8 characters long"/>
+    </div>
     <div class="btn-container">
       <button id="start" class="start">Start</button>
       <button id="reset" class="reset">Reset</button>
