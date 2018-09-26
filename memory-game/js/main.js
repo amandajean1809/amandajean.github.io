@@ -11,8 +11,8 @@ const game = {
   currentPlayer: 0,      // 0 or 1 (player1 or player2)
   matches1: 0,
   matches2: 0,
-  chances1: 0,
-  chances2: 0,
+  misses1: 0,
+  misses2: 0,
   player1: '',
   player2: ''
 };
@@ -30,10 +30,15 @@ let images = ['./img/tawny_owl.jpg',
                 './img/ural_owl.jpg',
                 './img/snowy_owl.jpg',
                 './img/owl_burrowing.jpg',
+                './img/great_grey_owl.jpg',
+                './img/great_horned_owl.jpg',
                 './img/tawny_owl.jpg',
                 './img/ural_owl.jpg',
                 './img/snowy_owl.jpg',
-                './img/owl_burrowing.jpg'];
+                './img/owl_burrowing.jpg',
+                './img/great_grey_owl.jpg',
+                './img/great_horned_owl.jpg'
+];
 
 // retains order of image ids in the display createImageArray
 let imageOrder = [];
@@ -77,7 +82,6 @@ const createImageArray = () => {
 
     const $cardDiv = $('<div>')
       .addClass('card')
-      .attr("id", imageid)
       .on('click', flipImage);
 
     const $front = $('<div>')
@@ -99,33 +103,64 @@ const createImageArray = () => {
 const resetGame = () => {
   selectedImages = [];
   currentGame = {};
-
-
 }
 
 const flipImage = (event) => {
   let $target = $( event.currentTarget );
-  // let $cardChildren = $( event.currentTarget ).children();
-  let $card = $( event.currentTarget ).children('div:first');
   $target.toggleClass('flipped');
 
-  // // keep track of what images are selected
-  selectedImages.push( $card );
+  // keep track of what images are selected
+  selectedImages.push( $target );
   console.log( selectedImages );
 
   // enough selections to check for a match?
   if (selectedImages.length === 2) {
-    checkForMatch();
+    checkForMatch(event);
   }
   event.preventDefault();
 }
 
-const checkForMatch = () => {
+const checkForMatch = (event) => {
+  // get outer html from $target.children('div.back'); this has the image name
+  let $target = $( event.currentTarget );
+  let $divback = $target.children('div.back');
+//  let html = $divback[""0""].outerHTML;
+
   if (selectedImages[0] === selectedImages[1]) {
+    let $image1 = $(selectedImages[0]).parent();
+
     alert('matched');
+    updateGame('match');
   } else {
-    // flip them over; reset selected Images
-    selectedImages = [];
+    setTimeout(resetImages, 1200);
+
+    updateGame('miss');
+    game.currentPlayer = !game.currentPlayer;
+  }
+}
+
+const resetImages = () => {
+  // flip them over; reset selected Images
+  selectedImages[0].toggleClass('flipped', false);
+  selectedImages[1].toggleClass('flipped', false);
+
+  selectedImages = [];
+}
+
+const updateGame = (outcome) => {
+  // check who is the current player
+  if (currentGame.currentPlayer === 0) {
+    if (outcome === 'match') {
+      currentGame.matches1++;
+    } else {
+      currentGame.misses1++;
+    }
+  } else {
+    if (outcome === 'match') {
+      currentGame.matches2++;
+    } else {
+      currentGame.misses2++;
+    }
   }
 }
 
@@ -138,13 +173,13 @@ const startGame = () => {
   if ((currentGame.player1 === '') || (currentGame.player2 === '')) {
     alert('Both players need to enter a name before the game can begin.\nPlease enter both player\'s names and restart the game');
   } else {
-    let playerToStart = Math.floor(Math.random() * 1);
+    let playerToStart = Math.ceil(Math.random() * 1);
 
     // update the game details
     currentGame.currrentPlayer = playerToStart;
 
     // TODO: change this to message on the page...
-    let starter = (playerToStart === 0) : currentGame.player1 : currentGame.player2;
+    let starter = (playerToStart === 0) ? currentGame.player1 : currentGame.player2;
 
     alert(`${starter} starts the game. First player with 3 matches and less than 3 "misses" wins. Good Luck!`);
     console.log(starter);
