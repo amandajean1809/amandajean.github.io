@@ -1,8 +1,5 @@
 
 $(() => {
-  // $( '.flex-container' ).on('click', () => {
-  //   console.log('clicked image');
-  // });
   $('#start').on('click', () => {
 
   });
@@ -11,9 +8,6 @@ $(() => {
 
   createImageArray();
 })
-
-// state of game; gets set when 'game' begins
-let state = 0
 
 // container for image objects
 let imageObjects = [];
@@ -62,7 +56,6 @@ const createImageOrder = () => {
       filled = true;
     }
   }
-  console.log(imageOrder);
 }
 
 const createImageArray = () => {
@@ -79,32 +72,57 @@ const createImageArray = () => {
   // add to $flexContainer
   for (let i = 0; i < imageOrder.length; i++) {
     //create an image and add a unique id
-    arrayIdx = imageOrder[i];
+    imageid = imageOrder[i];
     // let imageid = `image${arrayIdx}`;
-    imageid = arrayIdx;
+    // imageid = arrayIdx;
 
-    // based on game state select front or background
-    imageToDisplay = (state === 0) ? imageBack : images[arrayIdx];
-    const $image = $( '<img>' )
-      .attr("src", imageToDisplay)
+    // create 'container div'
+    const $section = $('<section>')
+      .addClass('container');
+
+    const $cardDiv = $('<div>')
+      .addClass('card')
       .attr("id", imageid)
-      .addClass('image');
+      .on('click', flipImage);
 
-    let imageObj = {};
-    imageObj.front = images[arrayIdx];
-    imageObj.back = imageBack;
-    imageObj.id = arrayIdx;
+    const $front = $('<div>')
+      .css('background-image', 'url(' + imageBack + ')')
+      .addClass('front');
 
-    imageObjects.push($image);
+    const $back = $('<div>')
+      .css('background-image', 'url(' + images[imageid] + ')')
+      .addClass('back');
 
+    $section.append($cardDiv);
+    $cardDiv.append($front);
+    $cardDiv.append($back);
+    // create inner div
+    // const $cardDiv = $('<div>')
+    //   .addClass('card')
+    //   .attr("id", imageid)
+    //   .on('click', flipImage);
+    //
+    // // create 'front' div
+    // const $frontDiv = $('<div>')
+    //   .addClass('front');
+    //
+    // const $front = $( '<img>' )
+    //   .attr("src", imageBack);
+    //
+    // // create 'back' div
+    // const $backDiv = $('<div>')
+    //   .addClass('back');
+    //
+    // const $back = $( '<img>' )
+    //   .attr("src", images[arrayIdx]);
+    //
+    // $section.append($cardDiv);
+    // $cardDiv.append($frontDiv);
+    // $cardDiv.append($backDiv);
+    // $backDiv.append($back);
+    // $frontDiv.append($front);
 
-    //add an event listner/handler that toggles the class selected for the card that is clicked
-    $image.one('click', flipImage) ;
-
-    // $(image).one('click', () => {
-    //   console.log('image ' + $(image));
-    // })
-    $flexContainer.append( $image );
+    $flexContainer.append( $section );
   }
 }
 
@@ -113,19 +131,27 @@ const resetImages = () => {
 }
 
 const flipImage = (event) => {
-  let imageId = $(event.currentTarget).attr('id');
-  // get the image from the array
-  let image = images[imageId];
-
-  // keep track of what images are selected
-  selectedImages.push(image);
-  console.log(selectedImages);
-
-  // enough selections to check for a match?
-  if (selectedImages.length === 2) {
-    checkForMatch();
-  }
-
+  let $target = $(event.currentTarget);
+  let $cardChildren = $( event.currentTarget).children();
+  let $front = $( event.currentTarget).children('div:first');
+  // let $card = ($('.card')).getParent();
+  // console.log($card);
+  $target.toggleClass('flipped');
+  // $target.attr("backface-visibility", "hidden");
+  // console.log($(event.target));
+  // console.log($(event.currentTarget));
+  // // get the image from the array
+  // let image = images[imageId];
+  //
+  // // keep track of what images are selected
+  // selectedImages.push(image);
+  // console.log(selectedImages);
+  //
+  // // enough selections to check for a match?
+  // if (selectedImages.length === 2) {
+  //   checkForMatch();
+  // }
+  event.preventDefault();
 }
 
 const checkForMatch = () => {
@@ -136,5 +162,41 @@ const checkForMatch = () => {
     selectedImages = [];
   }
 
+  // create 'container div'
+  // const $flipBoxDiv = $('<div>')
+  //   .addClass('flip-box');
+  //
+  // // create inner div
+  // const $flipBoxInnerDiv = $('<div>')
+  //   .addClass('flip-box-inner')
+  //   .on('click', flipImage);
+  //
+  // // $flipBoxDiv.append($flipBoxInnerDiv);
+  //
+  // // create 'front' div
+  // const $flipBoxFrontDiv = $('<div>')
+  //   .addClass('flip-box-front');
+  //
+  // // $flipBoxInnerDiv.append($flipBoxFrontDiv);
+  //
+  // const $imagefront = $( '<img>' )
+  //   .attr("src", images[arrayIdx])
+  //   .attr("id", imageid);
+  //
+  // // $flipBoxFrontDiv.append($imagefront);
+  //
+  // // create 'back' div
+  // const $flipBoxBackDiv = $('<div>')
+  //   .addClass('flip-box-back');
+  //
+  // const $imageback = $( '<img>' )
+  //   .attr("src", imageBack)
+  //   .attr("id", imageid);
+  //
+  // $flipBoxFrontDiv.append($imagefront);
+  // $flipBoxBackDiv.append($imageback);
+  // $flipBoxInnerDiv.append($flipBoxFrontDiv);
+  // $flipBoxInnerDiv.append($flipBoxBackDiv);
+  // $flipBoxDiv.append($flipBoxInnerDiv);
 
 }
