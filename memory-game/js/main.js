@@ -19,9 +19,11 @@ const game = {
 
 let currentGame = {};
 
-// container for image objects
-let imageObjects = [];
+// container for selected 'targets (images)'
+let selectedTargets = [];
 
+// comtainer for image paths of selected images;
+// used when comparing to see if the selections match
 let selectedImages = [];
 
 let imageBack = './img/back.jpg';
@@ -90,6 +92,7 @@ const createImageArray = () => {
 
     const $back = $('<div>')
       .css('background-image', 'url(' + images[imageid] + ')')
+      .attr('image-id', images[imageid])
       .addClass('back');
 
     $section.append( $cardDiv );
@@ -108,9 +111,13 @@ const resetGame = () => {
 const flipImage = (event) => {
   let $target = $( event.currentTarget );
   $target.toggleClass('flipped');
+  let $divback = $target.children('div.back');
 
-  // keep track of what images are selected
-  selectedImages.push( $target );
+  // keep track of what images/targets are selected
+  // let imageid = $divback.attr('image-id');
+  selectedImages.push( $divback.attr('image-id') );
+  selectedTargets.push( $target );
+
   console.log( selectedImages );
 
   // enough selections to check for a match?
@@ -125,14 +132,14 @@ const checkForMatch = (event) => {
   let $target = $( event.currentTarget );
   let $divback = $target.children('div.back');
 //  let html = $divback[""0""].outerHTML;
-
+  console.log(selectedImages);
   if (selectedImages[0] === selectedImages[1]) {
-    let $image1 = $(selectedImages[0]).parent();
+    // let $image1 = $(selectedImages[0]).parent();
 
     alert('matched');
     updateGame('match');
   } else {
-    setTimeout(resetImages, 1200);
+    setTimeout(resetImages, 1500);
 
     updateGame('miss');
     game.currentPlayer = !game.currentPlayer;
@@ -141,10 +148,11 @@ const checkForMatch = (event) => {
 
 const resetImages = () => {
   // flip them over; reset selected Images
-  selectedImages[0].toggleClass('flipped', false);
-  selectedImages[1].toggleClass('flipped', false);
+  selectedTargets[0].toggleClass('flipped', false);
+  selectedTargets[1].toggleClass('flipped', false);
 
   selectedImages = [];
+  selectedTargets = [];
 }
 
 const updateGame = (outcome) => {
