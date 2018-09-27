@@ -8,17 +8,18 @@ $(() => {
 })
 
 const game = {
+  started: false,
   currentPlayer: 0,      // 0 or 1 (player1 or player2)
   matches1: 0,
   matches2: 0,
-  misses1: 0,
-  misses2: 0,
+  // misses1: 0,
+  // misses2: 0,
   player1: '',
   player2: ''
 };
 
-let currentGame = {};
-
+let currentGame = game;
+// let currentGame = {};
 // container for selected 'targets (images)'
 let selectedTargets = [];
 
@@ -26,17 +27,15 @@ let selectedTargets = [];
 // used when comparing to see if the selections match
 let selectedImages = [];
 
-let imageBack = './img/back.jpg';
+let imageBack = './img/forest.jpg';
 
 let images = ['./img/tawny_owl.jpg',
-                './img/ural_owl.jpg',
-                './img/snowy_owl.jpg',
+                './img/snowy_owl.png',
                 './img/spectacled_owl.png',
                 './img/great_grey_owl.jpg',
                 './img/great_horned_owl.jpg',
                 './img/tawny_owl.jpg',
-                './img/ural_owl.jpg',
-                './img/snowy_owl.jpg',
+                './img/snowy_owl.png',
                 './img/spectacled_owl.png',
                 './img/great_grey_owl.jpg',
                 './img/great_horned_owl.jpg'
@@ -109,6 +108,11 @@ const resetGame = () => {
 }
 
 const flipImage = (event) => {
+  // make sure game is ready to player
+  // if (currentGame.started === false) {
+  //   alert('Player details need to be entered before game can begin');
+  //   return;
+  // }
   let $target = $( event.currentTarget );
   $target.toggleClass('flipped');
   let $divback = $target.children('div.back');
@@ -130,13 +134,13 @@ const checkForMatch = (event) => {
   if (selectedImages[0] === selectedImages[1]) {
     let $msg  = (currentGame.currentPlayer === 0) ? $('#msg1') : $('#msg2');
     $msg.text('Matched!!!');
-    setTimeout(clearStatus, 1800);
+    setTimeout(clearStatus, 2000);
     updateGame('match');
     selectedImages = [];
     selectedTargets = [];
 
   } else {
-    setTimeout(resetImages, 1500);
+    setTimeout(resetImages, 2000);
     updateGame('miss');
     game.currentPlayer = !game.currentPlayer;
   }
@@ -161,18 +165,19 @@ const updateGame = (outcome) => {
   if (currentGame.currentPlayer === 0) {
     if (outcome === 'match') {
       currentGame.matches1++;
-    } else {
-      currentGame.misses1++;
     }
-  } else {
-    if (outcome === 'match') {
+  } else if (outcome === 'match') {
       currentGame.matches2++;
-    } else {
-      currentGame.misses2++;
-    }
   }
+  checkForGameEnd();
 }
+/*
+  if all images are flipped, then compare the scores.
+  Display the winner
+*/
+const checkForGameEnd = () => {
 
+}
 const startGame = () => {
   // get player input; save in game object
   currentGame.player1 = $( '#player1' ).val();
@@ -186,6 +191,7 @@ const startGame = () => {
 
     // update the game details
     currentGame.currrentPlayer = playerToStart;
+    currentGame.started = true;
 
     // TODO: change this to message on the page...
     let starter = (playerToStart === 0) ? currentGame.player1 : currentGame.player2;
