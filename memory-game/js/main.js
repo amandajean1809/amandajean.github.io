@@ -12,8 +12,6 @@ const game = {
   currentPlayer: 0,      // 0 or 1 (player1 or player2)
   matches1: 0,
   matches2: 0,
-  // misses1: 0,
-  // misses2: 0,
   player1: '',
   player2: ''
 };
@@ -34,11 +32,13 @@ let images = ['./img/tawny_owl.jpg',
                 './img/spectacled_owl.png',
                 './img/great_grey_owl.jpg',
                 './img/great_horned_owl.jpg',
+                './img/owl_bird_young.jpg',
                 './img/tawny_owl.jpg',
                 './img/snowy_owl.png',
                 './img/spectacled_owl.png',
                 './img/great_grey_owl.jpg',
-                './img/great_horned_owl.jpg'
+                './img/great_horned_owl.jpg',
+                './img/owl_bird_young.jpg'
 ];
 
 // retains order of image ids in the display createImageArray
