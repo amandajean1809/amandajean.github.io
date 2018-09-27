@@ -126,12 +126,11 @@ const flipImage = (event) => {
 }
 
 const checkForMatch = (event) => {
-  // let $target = $( event.currentTarget );
-  // let $divback = $target.children('div.back');
 
   if (selectedImages[0] === selectedImages[1]) {
     let $msg  = (currentGame.currentPlayer === 0) ? $('#msg1') : $('#msg2');
     $msg.text('Matched!!!');
+    setTimeout(clearStatus, 1800);
     updateGame('match');
     selectedImages = [];
     selectedTargets = [];
@@ -143,16 +142,16 @@ const checkForMatch = (event) => {
   }
 }
 
+const clearStatus = () => {
+  $('#msg1').text('');
+  $('#msg2').text('');
+}
+
 const resetImages = () => {
   // flip them over; reset selected Images
   selectedTargets[0].toggleClass('flipped', false);
   selectedTargets[1].toggleClass('flipped', false);
 
-  selectedImages = [];
-  selectedTargets = [];
-}
-
-const resetMatchContainers = () => {
   selectedImages = [];
   selectedTargets = [];
 }
