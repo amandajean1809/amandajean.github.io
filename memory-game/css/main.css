@@ -22,6 +22,16 @@ h1 {
 	text-transform: uppercase;
 	margin: 0;
 }
+#msg1, #msg2 {
+  display: inline;
+  font-size: 20px;
+  font-weight: 400;
+  color: #cc0003;
+  /* text-shadow: 1px 2px #ff0000; */
+}
+#msg2 {
+  padding 10 0 0 40px;
+}
 .flex-container {
   display: flex;
   flex-wrap: wrap;
@@ -47,9 +57,9 @@ h1 {
   width: 100%;
   line-height: 260px;
   color: white;
-  text-align: center;
+  /* text-align: center;
   font-weight: bold;
-  font-size: 140px;
+  font-size: 140px; */
   position: absolute;
   backface-visibility: hidden;
 }
@@ -61,13 +71,20 @@ h1 {
   backface-visibility: visible;
 }
 input[type="text"] {
-  width: 60px;
+  width: 80px;
   height: 25px;
   font-size: 14px;
   padding: 0 20px;
+  text-align: left;
 }
 .player-container {
   padding: 10px;
+}
+#msg1 {
+  padding: 0 10px;
+}
+.label1 {
+  padding: 0 15 0 40px;
 }
 .start, .reset {
   margin: 0 auto;

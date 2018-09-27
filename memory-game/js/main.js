@@ -131,12 +131,11 @@ const checkForMatch = (event) => {
   // get outer html from $target.children('div.back'); this has the image name
   let $target = $( event.currentTarget );
   let $divback = $target.children('div.back');
-//  let html = $divback[""0""].outerHTML;
-  console.log(selectedImages);
-  if (selectedImages[0] === selectedImages[1]) {
-    // let $image1 = $(selectedImages[0]).parent();
 
-    alert('matched');
+  if (selectedImages[0] === selectedImages[1]) {
+    // setTimeout(matchedImages, 2000);
+    let $msg  = (currentGame.currentPlayer === 0) ? $('#msg1') : $('#msg2');
+    $msg.text('Matched!!!');
     updateGame('match');
   } else {
     setTimeout(resetImages, 1500);
