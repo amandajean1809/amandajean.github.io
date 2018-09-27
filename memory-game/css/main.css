@@ -3,11 +3,11 @@
 } */
 main {
 	width: 450;
-	/* margin: 15px auto; */
+  /* margin: 45px auto; */
   background-color: #fffae6;
 }
 body {
-    background-color: #fffae6;
+  background-color: #fffae6;
   text-align: center;
   font-family: Lato;
   margin: 0;
@@ -19,10 +19,13 @@ header {
 }
 h1 {
 	letter-spacing: 1px;
-	font-weight: 400;
+	font-weight: bold;
 	font-size: 45px;
 	text-transform: uppercase;
 	margin: 0;
+}
+h2 {
+  font-size: 1.75em;
 }
 #msg1, #msg2 {
   display: inline;

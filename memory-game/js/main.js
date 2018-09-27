@@ -190,7 +190,6 @@ const startGame = () => {
     // TODO: change this to message on the page...
     let starter = (playerToStart === 0) ? currentGame.player1 : currentGame.player2;
 
-    alert(`${starter} starts the game. First player with 3 matches and less than 3 "misses" wins. Good Luck!`);
-    console.log(starter);
+    alert(`${starter} starts the game. Good luck!`);
   }
 }
