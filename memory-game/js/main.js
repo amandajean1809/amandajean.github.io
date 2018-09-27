@@ -9,7 +9,7 @@ $(() => {
 
 const game = {
   started: false,
-  currentPlayer: 0,      // 0 or 1 (player1 or player2)
+  currentPlayer: '',      // 0 or 1 (player1 or player2)
   matches1: 0,
   matches2: 0,
   player1: '',
@@ -132,7 +132,7 @@ const flipImage = (event) => {
 const checkForMatch = (event) => {
 
   if (selectedImages[0] === selectedImages[1]) {
-    let $msg  = (currentGame.currentPlayer === 0) ? $('#msg1') : $('#msg2');
+    let $msg  = (currentGame.currentPlayer === currentGame.player1) ? $('#msg1') : $('#msg2');
     $msg.text('Matched!!!');
     setTimeout(clearStatus, 2000);
     updateGame('match');
@@ -142,7 +142,29 @@ const checkForMatch = (event) => {
   } else {
     setTimeout(resetImages, 2000);
     updateGame('miss');
-    game.currentPlayer = !game.currentPlayer;
+    game.currentPlayer = (game.currentPlayer === game.player1) ? game.player2 : game.player1;
+  }
+  console.log(`currentPlayer: ${game.currentPlayer}`);
+}
+
+const showActivePlayer = () => {
+  // draw red border around player selecting Images
+  let $label1 = '';
+  let $label2 = '';
+
+  if (game.currentPlayer === game.player1) {
+    $label1 = $('#label1');
+    $label1.css('color', '#cc0003').css('font-weight', 'bold');
+
+    $label2 = $('#label2');
+    $label2.css('color', 'black').css('font-weight', 'normal');
+  } else {
+    $label2 = $('#label2');
+    $label2.css('color', '#cc0003').css('font-weight', 'bold');
+
+    $label1 = $('#label1');
+    $label1.css('color', 'black');
+    $label1.css('font-weight', 'normal');
   }
 }
 
@@ -152,6 +174,9 @@ const clearStatus = () => {
 }
 
 const resetImages = () => {
+  // switch playerToStart  showActivePlayer();
+  showActivePlayer();
+
   // flip them over; reset selected Images
   selectedTargets[0].toggleClass('flipped', false);
   selectedTargets[1].toggleClass('flipped', false);
@@ -187,15 +212,25 @@ const startGame = () => {
   if ((currentGame.player1 === '') || (currentGame.player2 === '')) {
     alert('Both players need to enter a name before the game can begin.\nPlease enter both player\'s names and restart the game');
   } else {
-    let playerToStart = Math.ceil(Math.random() * 1);
-
+    let playerToStart = Math.ceil(Math.random() * 1) + 1;
+    console.log(`Random = ${playerToStart}`);
     // update the game details
-    currentGame.currrentPlayer = playerToStart;
+    currentGame.currentPlayer = (playerToStart === 1) ? currentGame.player1 : currentGame.player2 ;
     currentGame.started = true;
 
     // TODO: change this to message on the page...
     let starter = (playerToStart === 0) ? currentGame.player1 : currentGame.player2;
 
-    alert(`${starter} starts the game. Good luck!`);
+    alert(`${currentGame.currentPlayer} starts the game. Good luck!`);
+
+    // highlight the active player
+    if (game.currentPlayer === game.player1) {
+      $label1 = $('#label1');
+      $label1.css('color', '#cc0003').css('font-weight', 'bold');
+    } else {
+      $label2 = $('#label2');
+      $label2.css('color', '#cc0003').css('font-weight', 'bold');
+
+    }
   }
 }
