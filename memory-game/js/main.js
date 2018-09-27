@@ -31,13 +31,13 @@ let imageBack = './img/back.jpg';
 let images = ['./img/tawny_owl.jpg',
                 './img/ural_owl.jpg',
                 './img/snowy_owl.jpg',
-                './img/owl_burrowing.jpg',
+                './img/spectacled_owl.png',
                 './img/great_grey_owl.jpg',
                 './img/great_horned_owl.jpg',
                 './img/tawny_owl.jpg',
                 './img/ural_owl.jpg',
                 './img/snowy_owl.jpg',
-                './img/owl_burrowing.jpg',
+                './img/spectacled_owl.png',
                 './img/great_grey_owl.jpg',
                 './img/great_horned_owl.jpg'
 ];
@@ -113,33 +113,31 @@ const flipImage = (event) => {
   $target.toggleClass('flipped');
   let $divback = $target.children('div.back');
 
-  // keep track of what images/targets are selected
-  // let imageid = $divback.attr('image-id');
+  // keep track of what images/targets are selected (save image path and $target). 'image-id' will be used to compare if selections are equal
   selectedImages.push( $divback.attr('image-id') );
   selectedTargets.push( $target );
-
-  console.log( selectedImages );
 
   // enough selections to check for a match?
   if (selectedImages.length === 2) {
     checkForMatch(event);
   }
+  // TODO: needed??
   event.preventDefault();
 }
 
 const checkForMatch = (event) => {
-  // get outer html from $target.children('div.back'); this has the image name
-  let $target = $( event.currentTarget );
-  let $divback = $target.children('div.back');
+  // let $target = $( event.currentTarget );
+  // let $divback = $target.children('div.back');
 
   if (selectedImages[0] === selectedImages[1]) {
-    // setTimeout(matchedImages, 2000);
     let $msg  = (currentGame.currentPlayer === 0) ? $('#msg1') : $('#msg2');
     $msg.text('Matched!!!');
     updateGame('match');
+    selectedImages = [];
+    selectedTargets = [];
+
   } else {
     setTimeout(resetImages, 1500);
-
     updateGame('miss');
     game.currentPlayer = !game.currentPlayer;
   }
@@ -150,6 +148,11 @@ const resetImages = () => {
   selectedTargets[0].toggleClass('flipped', false);
   selectedTargets[1].toggleClass('flipped', false);
 
+  selectedImages = [];
+  selectedTargets = [];
+}
+
+const resetMatchContainers = () => {
   selectedImages = [];
   selectedTargets = [];
 }
