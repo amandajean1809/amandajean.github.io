@@ -18,6 +18,14 @@ unsolved problems:
 
 technical details:
 - when page is loaded image array is created using dynamic css
+`$(() => {
+  $('#start').on('click', startGame);
+
+  $('#reset').on('click', resetGame);
+
+  createImageArray();
+})
+`
 
 - player information has to be entered before game can begin (check is made when 'start' button clicked or image card is clicked)
 
