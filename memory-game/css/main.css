@@ -1,10 +1,9 @@
-/* * {
+* {
   border: 1px solid red;
-} */
+}
 main {
 	width: 750px;
   margin: 0 auto;
-  /* margin: 45px auto; */
   background-color: #fffae6;
   border-top: 1px solid black;
 }
@@ -28,21 +27,35 @@ h1 {
 }
 h2 {
   font-size: 1.75em;
+  margin: 0;
 }
-#msg1, #msg2 {
-  display: inline;
+/* #msg1, #msg2 {
+  display: block;
   font-size: 20px;
   font-weight: 400;
   color: #cc0003;
-}
-#msg2 {
+} */
+/* #msg2 {
   margin-left: 20px;
 }
 #msg1 {
   margin-right: 20px;
-  /* padding: 0 10px; */
-}
+} */
+/* #msg1, #msg2 {
+  display: inline;
+} */
 #score1, #score2 {
+  padding-right: 80px;
+}
+#msg1 {
+  padding-right: 90px;
+  text-align: left;
+}
+#msg2 {
+  padding-left: 80px;
+  text-align: left;
+}
+#score1, #score2, #msg1, #msg2 {
   display: inline;
 }
 .flex-container {
@@ -66,7 +79,7 @@ h2 {
   height: 100%;
   position: relative;
   align-self: center;
-  margin: 5px 0;
+  margin: 2px 0;
   transition: transform 1s;
   transform-style: preserve-3d;
 }
@@ -87,10 +100,10 @@ h2 {
   backface-visibility: visible;
 }
 input[type="text"] {
-  width: 80px;
+  /* width: 80px; */
   height: 20px;
   font-size: 14px;
-  padding: 0 5px;
+  padding: 0 10px;
   text-align: left;
   background-color: #fffae6;
 }
@@ -107,16 +120,15 @@ input[type="text"] {
   font-size: 20px;
 }
 .start, .reset {
-  margin-right: 15px;
+  margin: 10px 15px;
 	font-weight: 700;
   border-radius: 5px;
 	background-color: #e6ac00;
 	text-transform: uppercase;
   border: none;
   color: white;
-  padding: 15px 25px;
+  padding: 12px 25px;
   text-align: center;
   font-size: 14px;
-  margin-right: 16px;
   cursor: pointer;
 }
