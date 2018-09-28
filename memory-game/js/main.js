@@ -104,15 +104,34 @@ const createImageArray = () => {
 
 const resetGame = () => {
   selectedImages = [];
-  currentGame = {};
+  selectedTargets = [];
+  currentGame = game;
+
+  $('#score1').text('');
+  $('#score2').text('');
+
+  $('#msg1').text('');
+  $('#msg1').text('');
+
+  // $label1 = $('#label1');
+  $('#label1').css('color', 'black');
+  $('#label1').css('font-weight', 'normal');
+
+  // $label2 = $('#label2');
+  $('#label2').css('color', 'black');
+  $('#label2').css('font-weight', 'normal');
+
+  // remove images from $flexContainer
+  $('section').remove();
+  createImageArray();
 }
 
 const flipImage = (event) => {
   // make sure game is ready to player
-  // if (currentGame.started === false) {
-  //   alert('Player details need to be entered before game can begin');
-  //   return;
-  // }
+  if (currentGame.started === false) {
+    alert('Player details need to be entered before game can begin');
+    return;
+  }
   let $target = $( event.currentTarget );
   $target.toggleClass('flipped');
   let $divback = $target.children('div.back');
@@ -134,7 +153,7 @@ const checkForMatch = (event) => {
   if (selectedImages[0] === selectedImages[1]) {
     let $msg  = (currentGame.currentPlayer === currentGame.player1) ? $('#msg1') : $('#msg2');
     $msg.text('Matched!!!');
-    setTimeout(clearStatus, 2000);
+    setTimeout(clearStatus, 4000);
     updateGame('match');
     selectedImages = [];
     selectedTargets = [];
@@ -144,7 +163,6 @@ const checkForMatch = (event) => {
     updateGame('miss');
     game.currentPlayer = (game.currentPlayer === game.player1) ? game.player2 : game.player1;
   }
-  console.log(`currentPlayer: ${game.currentPlayer}`);
 }
 
 const showActivePlayer = () => {
@@ -174,7 +192,7 @@ const clearStatus = () => {
 }
 
 const resetImages = () => {
-  // switch playerToStart  showActivePlayer();
+  // switch playerToStart
   showActivePlayer();
 
   // flip them over; reset selected Images
@@ -187,12 +205,14 @@ const resetImages = () => {
 
 const updateGame = (outcome) => {
   // check who is the current player
-  if (currentGame.currentPlayer === 0) {
+  if (currentGame.currentPlayer === currentGame.player1) {
     if (outcome === 'match') {
       currentGame.matches1++;
+      $('#score1').text(currentGame.matches1);
     }
   } else if (outcome === 'match') {
       currentGame.matches2++;
+      $('#score2').text(currentGame.matches2);
   }
   checkForGameEnd();
 }
@@ -202,6 +222,12 @@ const updateGame = (outcome) => {
 */
 const checkForGameEnd = () => {
 
+  if (currentGame.matches1 + currentGame.matches2 === (images.length/2)) {
+    let winner = (currentGame.matches1 > currentGame.matches2) ? currentGame.player1 : currentGame.player2;
+    let matches = (currentGame.matches1 > currentGame.matches2) ? currentGame.matches1 : currentGame.matches2;
+
+    alert(`GAME OVER! ${winner} wins with ${matches} matches.\nThanks for pairing up the owls!`)
+  }
 }
 const startGame = () => {
   // get player input; save in game object
@@ -212,8 +238,8 @@ const startGame = () => {
   if ((currentGame.player1 === '') || (currentGame.player2 === '')) {
     alert('Both players need to enter a name before the game can begin.\nPlease enter both player\'s names and restart the game');
   } else {
-    let playerToStart = Math.ceil(Math.random() * 1) + 1;
-    console.log(`Random = ${playerToStart}`);
+    let playerToStart = (Math.floor(Math.random() * (2 - 1 + 1)) + 1);
+
     // update the game details
     currentGame.currentPlayer = (playerToStart === 1) ? currentGame.player1 : currentGame.player2 ;
     currentGame.started = true;
