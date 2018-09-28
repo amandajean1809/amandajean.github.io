@@ -26,3 +26,6 @@ My focus was on using jQuery to manipulate the DOM since I had been exposed to t
 - once all of the cards are turned over, the player with the most matches "wins"
 
 - The Reset button creates a new "board" (images 
+
+### Link to site on Github:
+https://amandajean1809.github.io/memory-game/
